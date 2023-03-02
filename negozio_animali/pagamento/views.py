@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
 
 from Negozio_animali_Balugani.settings import EMAIL_HOST_USER
-from account.models import CustomUser
+from negozio_animali.account.models import CustomUser
 from ordini.models import Order, OrderItem
 from shop_online.models import Prodotto
 

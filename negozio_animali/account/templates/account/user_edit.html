@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+
+
+
+{% block title %} Edit utente {% endblock %}
+
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-3 mx-auto">
+            <div class="login align-items-center">
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form | crispy }}
+
+                                <input type="submit" class="btn btn-success" value="salva le modifiche">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block footer %} {% endblock %}

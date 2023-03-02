@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+
+
+
+{% block title %} Creazione Utente {% endblock %}
+
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-3 mx-auto">
+            <div class="login align-items-center">
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            {% if "notok" in request.GET.auth %}
+                                <div class="alert alert-danger" role="alert">
+                                    Si è arrivati qui in quanto non si dispone dei permessi necessari per il servizio
+                                    scelto!
+                                </div>
+                            {% endif %}
+
+                            <form method="post"> {% csrf_token %}
+
+                                {{ form | crispy }}
+
+                                <input type="submit" class="btn btn-success" value="Esegui login">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block footer %} {% endblock %}

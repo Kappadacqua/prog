@@ -2,9 +2,8 @@ from django.shortcuts import render, get_object_or_404
 
 from django.views.decorators.http import require_POST
 
-from account.models import CustomUser
-from ordini.models import OrderItem, Order
-from shop_online.models import Prodotto
+from negozio_animali.account.models import CustomUser
+from ordini.models import Order
 
 
 @require_POST

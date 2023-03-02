@@ -2,12 +2,10 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
-from account.models import CustomUser
+from negozio_animali.account.models import CustomUser
 from shop_online.forms import RecensioneForm
 from shop_online.models import Prodotto, Animale, Categoria, Recensione
 
