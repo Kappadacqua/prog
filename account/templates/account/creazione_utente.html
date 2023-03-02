@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+
+
+
+{% block title %} Creazione Utente {% endblock %}
+
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-3 mx-auto">
+            <div class="login align-items-center">
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <label>{{ form.email.label }}</label>
+                                {{ form.email }}
+                                <label>{{ form.username.label }}</label>
+                                {{ form.username }}
+                                <label>{{ form.password.label}}</label>
+                                {{ form.password }}
+                                <label>{{ form.password_check.label }}</label>
+                                {{ form.password_check }}
+                                <label>{{ form.nome.label }}</label>
+                                {{ form.nome }}
+                                <label>{{ form.cognome.label }}</label>
+                                {{ form.cognome }}
+                                <label>{{ form.citta.label }}</label>
+                                {{ form.citta }}
+                                <label>{{ form.indirizzo.label }}</label>
+                                {{ form.indirizzo }}
+                                <label>{{ form.codice_postale.label }}</label>
+                                {{ form.codice_postale }}
+                                <label>{{ form.telefono.label }}</label>
+                                {{ form.telefono }}
+
+
+                                <button class="btn btn-outline-primary" href="{% url "registrazione" %}">registrati
+                                </button>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block footer %} {% endblock %}

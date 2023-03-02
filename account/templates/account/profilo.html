@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}Profilo utente{% endblock %}
+
+{% block header2 %}
+    <h1> pagina di {{ user.username }}</h1>
+{% endblock %}
+
+{% block content %}
+
+    <div class="py-5">
+    <div class="container">
+        <div class="row hidden-md-up">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-block">
+
+                        <h3 class="card-title">Informazioni profilo</h3>
+                        <dt>Nome</dt>
+                        <dd>{{ user.nome }}</dd>
+                        <dt>Cognome</dt>
+                        <dd>{{ user.cognome }}</dd>
+                        <dt>Mail</dt>
+                        <dd>{{ user.email }}</dd>
+                        <dt>Telefono</dt>
+                        <dd>{{ user.telefono }}</dd>
+
+
+                        <a href={% url "edit" %} class="card-link" methods="">Modifica profilo</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-block">
+                        <h3 class="card-title">I Miei punti fedeltà</h3>
+                        <h5>Punti totali</h5>
+                        <h1>{{ user.punti }}</h1>
+                        <a href="{% url 'prodottianimale' slug_animale="altro" %}" class="card-link">Articoli in promozione</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="card-title">Acquisti</h4>
+
+                        <a href="history" class="card-link">I miei ordini</a>
+                        <a href="#" class="card-link">Acquisti passati</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Appuntamenti</h4>
+                            <h6 class="card-subtitle text-muted">Appuntamenti prenotati</h6>
+                            <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
+                            <a href="#" class="card-link">link</a>
+                            <a href="#" class="card-link">Second link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Card title</h4>
+                            <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                            <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
+                            <a href="#" class="card-link">link</a>
+                            <a href="#" class="card-link">Second link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Card title</h4>
+                            <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                            <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
+                            <a href="#" class="card-link">link</a>
+                            <a href="#" class="card-link">Second link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+
+{# modifica profilo #}
+{# acquisti passati #}
+{# consigliati per te #}
+{# logout #}
+{# i tuoi punti #}
+{# i tuoi appuntamenti #}
