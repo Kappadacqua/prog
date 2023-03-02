@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load filtro_numero_prodotti %}
+
+
+{% block header2 %}
+
+
+    history di {{ user.username }}
+
+{% endblock %}
+
+{% block title %} user_history {% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        {% for ordine in ordini %}
+            <div id='prodotto' class=" mx-auto">
+
+
+                <main class="pt-5 my-5 pb-5">
+                    <div class="border">
+                        <div class="row g-3">
+                            <div class="col-md-3 col-lg-5 order-md-first bg-white">
+                                <img class="img-fluid img-thumbnail mx-auto d-block " style="width:60%"
+                                     alt="Immagine prodotto"
+                                     src="{{ prodotto.immagine.url }}">
+
+                            </div>
+
+                            <div class="col-md-4 col-lg-7 ps-md-5 ps-lg-5">
+
+
+                                <div class="col border-bottom">
+
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <h1 class="mb-0 h1">{{ prodotto.nome|capfirst }}</h1> di
+                                            <span class="lead">{{ prodotto.venditore|title }}</span>
+                                        </div>
+                                        <div class="col-sm">
+
+
+                                            <h1 class="mb-0 h1">5.0/5</h1>
+
+                                            <a href="#" class="card-link">Vedi tutte le recensioni</a>
+                                            <a href="#" class="card-link">Scrivi una tua recensione</a>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col border-bottom">
+                                    <div class="row p-3">
+                                        <div class="col-6">
+
+                                            <h3>quantita acquistata:</h3>
+                                            <span class="h2 text-info fw-bold">{{ quantita }}</span>
+                                            <h3>Prezzo totale:</h3>
+                                            <span class="h2 text-danger fw-bold">{{ prodotto.prezzo }}€</span>
+                                        </div>
+
+                                        <form method="POST" action="{% url "rimuovi_carrello" %}"
+                                              class="col-6 text-end">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="prodotto_id" value="{{ prodotto.id }}">
+                                            <input type="submit" class="btn btn-outline-danger"
+                                                   value="Rimuovi dal carrello">
+
+
+                                            <div class="col-6">
+                                                <label for="select">Quantita</label>
+                                                <select id="select" name="prodotto_quantita">
+
+                                                        <option value="{{ quantita }}">tutto</option>
+                                                    {% for i in quantita|range_custom %}
+                                                        <option value="{{ i|add:1 }}">{{ i|add:1 }}</option>
+                                                    {% endfor %}
+
+                                                </select>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </main>
+            </div>
+
+
+
+        {% endfor %}
+
+
+
+
+        {% if subtotale %}
+            <div class="col-9 text-end">
+                <div class="h3 fw-bold">Prezzo totale: <a id="subtotal">{{ subtotale }}</a>€</div>
+                <a role="button" href="{% url 'conferma_ordine' %}" class="btn btn-outline-success fw-bold" type="button">Checkout</a>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+

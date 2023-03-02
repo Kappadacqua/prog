@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+
+
+    {{ block.super }}
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/css/ol.css"
+          type="text/css">
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/build/ol.js"></script>
+    <style>
+        .map {
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+
+        function gatherLocation() {
+
+
+                let state = "{{location.stato}}";
+                let address = "{{ location.indirizzo }}";
+                let city = "{{ location.citta }}";
+
+
+            console.log(address)
+            console.log("https://nominatim.openstreetmap.org/search?q=" + address.replace(/\s/g, '+') + "," + city.replace(/\s/g, '+') + "," + state.replace(/\s/g, '+') + "&format=json&polygon=1&addressdetails=1")
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://nominatim.openstreetmap.org/search?q=" + address.replace(/\s/g, '+') + "," + city.replace(/\s/g, '+') + "," + state.replace(/\s/g, '+') + "&format=json&polygon=1&addressdetails=1", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.addEventListener("readystatechange", function () {
+                var map = document.getElementById("map");
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            response = JSON.parse(xhr.response)
+                            mapSetup(response[0]['lat'], response[0]['lon'])
+                        } catch (e) {
+                            map.remove()
+                        }
+                    } else {
+                        map.remove()
+                    }
+                }
+            });
+            xhr.send()
+
+        }
+
+        function mapSetup(lat, lon) {
+            var map = new ol.Map({
+                target: 'map',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([lon, lat]),
+                    zoom: 16
+                })
+            })
+            const center = map.getView().getCenter();
+            const pinnedLocation = ol.proj.transform(center, 'EPSG:3857', 'EPSG:4326');
+            const feature = new ol.Feature(new ol.geom.Point(center));
+            const pinLayer = new ol.layer.Vector({
+                source: new ol.source.Vector({
+                    features: [feature]
+                }),
+                style: new ol.style.Style({
+                    image: new ol.style.Icon({src: "{% static "/mappa/pin.png" %}"})
+                })
+            });
+            map.addLayer(pinLayer);
+        }
+
+
+        gatherLocation()
+
+    </script>
+
+{% endblock %}
+
+
+{% block title %} Pagina informativa {% endblock %}
+
+{% block header2 %}
+    <h1>Pagina informativa</h1>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    <div id="map" class="map"></div>
+
+{% endblock %}
