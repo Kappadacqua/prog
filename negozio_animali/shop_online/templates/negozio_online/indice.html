@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pulsante_su_carta_funzionante.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}"/>
+{% endblock %}
+
+{% block title %} risultati_per_animale {% endblock %}
+
+
+{% block header2 %}
+    {% if slug_animale %}
+        <nobr>
+            <h1> Animale: {{ slug_animale }} </h1>
+        </nobr>
+    {% endif %}
+    {% if slug_categoria %}
+        <nobr>
+            <h1> Categoria: {{ slug_categoria }} </h1>
+        </nobr>
+    {% endif %}
+
+    {% if prodotti|length > 0 %}
+        <h2> sono stati trovati i seguenti {{ prodotti|length }} risultati</h2>
+    {% else %}
+        <h2> Non è stato trovato nessun risultato...</h2>
+        <img src="/static/sito/PngItem_4930818.png" alt="immagine triste">
+        <p>No results?</p>
+    {% endif %}
+
+    <div class="container">
+        <form action="/search">
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="alfabetico" name="alfabetico" value="alfabetico">alfabetico
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="produttore" name="produttore" value="produttore">produttore
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="promozione" name="promozione" value="promozione">promozione
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="cucciolo" name="cucciolo" value="cucciolo">cucciolo
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="adulto" name="adulto" value="adulto">adulto
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="anziano" name="anziano" value="anziano">anziano
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% for animale in Prodotto %}
+        animale
+    {% endfor %}
+
+
+    <div class="row">
+
+        <div class="col-lg-3 mx-auto">
+
+            <div class="sidenav ">
+                <a href="/">Tutti i prodotti</a>
+                {% for animale in animali %}
+                    <button class="dropdown-btn">{{ animale }}
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <a href="{% url 'prodottianimale' slug_animale=animale.slug %} ">tutti gli articoli</a>
+                        {% for categoria in categorie %}
+                            <a href="{% url 'prodottianimalecategoria' slug_animale=animale.slug slug_categoria=categoria.slug %}">{{ categoria }}</a>
+                        {% endfor %}
+                    </div>
+
+
+                {% endfor %}
+                <button class="dropdown-btn">categorie prodotti
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    {% for categoria in categorie %}
+
+                        <a href="{% url 'prodotticategoria' slug_categoria=categoria.slug %}">{{ categoria }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div id='products' class="col-lg-9 mx-auto">
+            <div class="row mx-auto">
+                {% for prodotto in prodotti %}
+
+                    <div class="card mx-auto mb-3" id={{ prodotto.id }} style="width:300px">
+                        <img class="card-img-top" src="{{ prodotto.immagine.url }}" alt="Immagine prodotto"
+                             style="width:100%">
+                        <a href="{% url "pag_prodotto" prodotto.slug %}" class="stretched-link"></a>
+                        <div class="card-body">
+                            <h3 class="card-text">{{ prodotto.nome }}</h3>
+                            <h4 class="card-text">{{ prodotto.categoria }}</h4>
+                            <h5 class="card-text"> per </h5>
+                            <h4 class="card-text">{{ prodotto.animale }}</h4>
+                            {% if prodotto.in_stock %} {#  #}
+                                <a href="" class="btn btn-primary "> {# aggiungere al carrello #}
+                            {% else %}
+                                <a href="#" class="btn btn-primary disabled">
+                            {% endif %}
+                            Aggiungi al carrello</a>
+
+                            <p class="card-text"><small class="text-muted">Sample</small></p>
+                        </div>
+                    </div>
+
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="{% static 'js/navbar.js' %}">
+    </script>
+
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %} {% endblock %}
+
+{% block title %} DB prodotti {% endblock %}
+
+{% block content %}
+    {{ block.super }}
+
+    <h1>Prodotti per {{ animale }}</h1>
+
+
+    {% if listaprodotti.count > 0 %}
+        <p>Sono disponibili i seguenti {{ listaprodotti.count }} articoli</p>>
+
+        {% for p in listaprodotti %}
+            <ul>
+                {{ p }}
+            </ul>
+        {% endfor %}
+
+
+    {% else %}
+
+        <p>Nessun articolo trovato</p>
+
+    {% endif %}
+{% endblock %}

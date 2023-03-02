@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Home Negozio animali Balugani {% endblock %}
+
+{% block header2 %}
+    <h1>Negozio di animali</h1>
+    <p>Benvenuto
+    {% if user.is_authenticated %}
+     {{ user.username }}
+    {% else %}
+    Utente non registrato
+    {% endif %}
+  </p>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+    <h2>Esplora subito gli articoli per animale</h2>
+
+
+    {% for animale in lista_animali %}
+        <div class="btn-group">
+            <a href="{% url 'prodottianimale' slug_animale=animale.slug %}" class="btn btn-block" style="background-color:transparent" role="button">{{ animale }}
+                <img
+                    class="rounded-circle"
+                    src="{% static 'homepage'%}/{{ animale }}.png"
+                    alt="{{ tipologia }}" width="150"
+                    height="150"></a>
+        </div>
+
+    {% endfor %}
+
+    <br>
+    <br>
+    <p>Lo sai che offriamo anche servizi di toilettatura?</p>
+
+
+{% endblock %}

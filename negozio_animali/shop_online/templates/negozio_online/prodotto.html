@@ -1,0 +1,30 @@
+{# questa pagina permette di visualizzare il prodotto, logica della carta #}
+{% extends 'negozio_online/pagina_negozio.html' %}
+{% load static %}
+
+{% block title %} articolo {% endblock %}
+
+<div class="card" style="width:300px">
+
+
+    <img class="card-img-top" src="{{ p.immagine.url }}" alt="Card image" style="width:100%">
+    <div class="card-header">
+        {% if not p.disponibile %}
+            Prodotto non disponibile
+        {% endif %}
+    </div>
+
+    <div class="card-body">
+        <p class="card-text">{{ p }}</p>
+        {% if p.disponibile %} {#  #}
+            <a href="#" class="btn btn-primary"> {# aggiungere al carrello #}
+        {% else %}
+            <a href="#" class="btn btn-danger disabled">
+        {% endif %}
+        Aggiungi al carrello</a>
+    </div>
+</div>
+
+{% block content %}
+
+{% endblock %}

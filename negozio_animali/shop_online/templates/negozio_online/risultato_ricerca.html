@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} risultati_per_animale {% endblock %}
+
+{% block content %}
+
+    {% block searchbar %}
+        {% include "negozio_online/barra_di_ricerca_prodotti.html" %}
+    {% endblock %}
+
+    <center>
+        Ecco i risultati per
+        {% for p in object_list %}
+            <ul>
+                {{ p }}
+            </ul>
+        {% endfor %}
+
+    </center>
+{% endblock %}

@@ -1,0 +1,7 @@
+.card .btn {
+    z-index: 2;
+    position: relative;
+}
+
+/*viene usato dentro il templates lista_tutti_articoli in quanto non posso premere il pulsante dentro
+una card se tale card è anche streched-link*/
