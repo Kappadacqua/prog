@@ -1,0 +1,129 @@
+{% load crispy_forms_filters %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <form method="post"> {% csrf_token %}
+
+        {{ form | crispy }}
+
+        <input type="submit" class="btn btn-success" value="Registrati">
+
+    </form>
+
+{% endblock %}
+
+src="{% static "prodotti/false-2061132_960_720.png" %}"
+
+prova
+
+const state = "Italia";
+const address = "Via Tomaso da modena 12";
+const city = "Modena";
+
+
+const state = {{ stato }};
+const address = {{ indirizzo }};
+const city = {{ citta }};
+
+CATEGORIA_ANIMALE = (
+("cane", "cane"), ("gatto", "gatto"), ("uccello", "uccello"), ("roditore", "roditore"), ("pesciologia", "pesciologia"), ("rettile", "rettile"),("altro","altro"))
+
+
+tipologia_animale = models.CharField(max_length=100, choices=CATEGORIA_ANIMALE, default="cane",)
+@staticmethod
+def categorie_animali():
+return [str(e[0]) for e in CATEGORIA_ANIMALE]
+
+
+<div class="col-xl-3 ">
+    <div class="dropdown" id="list-tab" role="tablist">
+        <h4> Lorem Ipsum </h4>
+        <br>
+        <a class="dropdown-item active" id="list-who-list" data-toggle="list" href="/"
+           role="tab" aria-controls="who">dolor sit amet quo te</a>
+        <a class="dropdown-item" id="list-info-list" data-toggle="list" href="/" role="tab"
+           aria-controls="info">lorem prompta deseruisse</a>
+        <br>
+        <h4> Mei ipsum neglegentur ex</h4>
+        <br>
+        <a class="dropdown-item" id="list-contact-list" data-toggle="list" href="/"
+           role="tab" aria-controls="contact">est probo</a>
+        <a class="dropdown-item" id="list-where-list" data-toggle="list" href="/"
+           role="tab" aria-controls="where">nusquam eu</a>
+        <br>
+        <h4> Quo solum soleat</h4>
+        <br>
+        <a class="dropdown-item" id="list-get-list" data-toggle="list" href="/" role="tab"
+           aria-controls="get">adversarium id</a>
+        <a class="dropdown-item" id="list-send-list" data-toggle="list" href="/" role="tab"
+           aria-controls="send">qui ex minim discere</a>
+    </div>
+</div>
+
+
+<div class="list-group">
+
+    <a href="/" class="list-group-item list-group-item-action btn btn-outline-success">Tutti i prodotti</a>
+
+    {% for pulsante in lista_per_pulsanti %}
+        <a href="/"
+           class="dropdown-item list-group-item list-group-item-action btn btn-outline-success ">{{ pulsante.0 }}</a>
+
+    {% endfor %}
+</div>
+
+
+<div class="sidenav">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#clients">Clients</a>
+    <a href="#contact">Contact</a>
+    <button class="dropdown-btn">Dropdown
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+    </div>
+    <a href="#contact">Search</a>
+</div>
+
+
+<div class="sidenav">
+    <a href="/">Tutti i prodotti</a>
+    {% for pulsante in lista_per_pulsanti %}
+        <button class="dropdown-btn">{{ pulsante.0 }}
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+        {% for categoria in pulsante.1 %}
+            <a href="#">{{ categoria }}</a>
+        {% endfor %}
+
+
+    {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+       <a href="{% url "pag_prodotto" prodotto.slug %}" class="stretched-link"></a>
+
+{% url 'ricerca_prodotti' slug=animale.slug %}

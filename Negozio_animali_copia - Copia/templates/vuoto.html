@@ -1,0 +1,241 @@
+<div id='ordine' class="col-lg-9 mx-auto">
+
+    <div class="container">
+
+        <main class="pt-5 my-5 pb-5">
+
+            <div class="row g-3">
+
+                <div class="border">
+
+                    <div class="col border-bottom">
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <h1 class="mb-0 h1">{{ prodotto.nome|capfirst }}</h1> di
+                                <span class="lead">{{ prodotto.venditore|title }}</span>
+                            </div>
+                            <div class="col-sm">
+
+
+                                <h1 class="mb-0 h1">5.0/5</h1>
+
+                                <a href="#" class="card-link">Vedi tutte le recensioni</a>
+                                <a href="#" class="card-link">Scrivi una tua recensione</a>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col border-bottom">
+                        <div class="row p-3">
+                            <div class="col-6"><span
+                                    class="h2 text-danger fw-bold">{{ prodotto.prezzo }}€</span></div>
+
+                            {% if user.is_authenticated %}
+                                <form method="POST" action="{% url "aggiungi_carrello" %}"
+                                      class="col-6 text-end">
+                            {% else %}
+                                <form method="POST" action="{% url "login" %}" class="col-6 text-end">
+                            {% endif %}
+                            {% csrf_token %}
+                            <input type="hidden" name="prodotto_id" value="{{ prodotto.id }}">
+                            {% if  prodotto.in_stock %}
+                                <div class="col">
+                                    <div class="row p-3">
+                                        <div class="col-6">
+                                            <label for="select">Quantita</label>
+                                            <select id="select" name="prodotto_quantita">
+
+                                                {% for i in "0123456789"|make_list %}
+                                                    <option value="{{ i|add:1 }}">{{ i|add:1 }}</option>
+                                                {% endfor %}
+
+                                            </select>
+                                        </div>
+
+
+                                        <div class="col text-end">
+
+                                            <input type="submit" class="btn btn-outline-success"
+                                                   value="Aggiungi al carrello">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="alert alert-danger" role="alert">
+                                    Prodotto non disponibile
+                                </div>
+                            {% endif %}
+
+
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="col border-bottom">
+
+                        <div class="row">
+
+                            <p> Tipo di animale: {{ prodotto.animale }}</p>
+                        </div>
+                        <div class="row">
+                            <p> Categoria del prodotto: {{ prodotto.categoria }}</p>
+
+                        </div>
+                        <div class="row">
+                            <p>Tag aggiuntivi:
+                                {% for tag in prodotto.tags %}
+                                    <span class="badge badge-pill badge-info">{{ tag }}</span>
+                                {% endfor %}</p>
+
+                        </div>
+                    </div>
+
+
+                    descrizione
+                    <p class="text-muted">{{ prodotto.descrizione }}</p>
+                </div>
+            </div>
+
+            <div class="my-5 pb-3 h4">Recommendation_system</div>
+
+
+        </main>
+    </div>
+
+</div>
+
+
+<div id='prodotto' class=" mx-auto">
+
+
+    <main class="pt-5 my-5 pb-5">
+        <div class="border">
+            <h1 class="mb-0 h1">{{ ordini|data }}</h1> di
+            <div class="row g-3">
+                <div class="col-md-3 col-lg-5 order-md-first bg-white">
+                    <img class="img-fluid img-thumbnail mx-auto d-block " style="width:60%"
+                         alt="Immagine prodotto"
+                         src="{{ prodotto.immagine.url }}">
+
+                </div>
+
+                <div class="col-md-4 col-lg-7 ps-md-5 ps-lg-5">
+
+
+                    <div class="col border-bottom">
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <h1 class="mb-0 h1">{{ prodotto.nome|capfirst }}</h1> di
+                                <span class="lead">{{ prodotto.venditore|title }}</span>
+                            </div>
+                            <div class="col-sm">
+
+
+                                <h1 class="mb-0 h1">5.0/5</h1>
+
+                                <a href="#" class="card-link">Vedi tutte le recensioni</a>
+                                <a href="#" class="card-link">Scrivi una tua recensione</a>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col border-bottom">
+                        <div class="row p-3">
+                            <div class="col-6">
+
+                                <h3>quantita acquistata:</h3>
+                                <span class="h2 text-info fw-bold">{{ quantita }}</span>
+                                <h3>Prezzo totale:</h3>
+                                <span class="h2 text-danger fw-bold">{{ prodotto.prezzo }}€</span>
+                            </div>
+
+                            <form method="POST" action="{% url "rimuovi_carrello" %}"
+                                  class="col-6 text-end">
+                                {% csrf_token %}
+                                <input type="hidden" name="prodotto_id" value="{{ prodotto.id }}">
+                                <input type="submit" class="btn btn-outline-danger"
+                                       value="Rimuovi dal carrello">
+
+
+                                <div class="col-6">
+                                    <label for="select">Quantita</label>
+                                    <select id="select" name="prodotto_quantita">
+
+                                        <option value="{{ quantita }}">tutto</option>
+
+
+                                    </select>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+
+<div id='prodotto' class=" mx-auto">
+
+
+    <main class="pt-5 my-5 pb-5">
+        <div class="border">
+
+
+            <div class="col border-bottom">
+                <h1 class="mb-0 h1">{{ ordini|data }}</h1>
+            </div>
+
+            <div class="col border-bottom">
+
+                <h1 class="mb-0 h1">{{ ordini|data }}</h1>
+            </div>
+
+            <div class="col">
+                <h1 class="mb-0 h1">{{ ordini|data }}</h1>
+            </div>
+
+
+        </div>
+
+
+    </main>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        {% if giorno|add:"-1" < 0 %}
+            <div class="col"><a href="#" class="btn btn-info"
+                                role="button" disabled=""> < </a></div>
+        {% else %}
+            <div class="col"><a href="{% url 'calendario_appuntamenti' giorno|add:"-1" %}" class="btn btn-info"
+                                role="button"> < </a></div>
+        {% endif %}
+        <div class="col"><h3>{{ data }}</h3></div>
+        {% if giorno|add:"1" >6 %}
+            <div class="col"><a href="#" class="btn btn-info"
+                                role="button" disabled=""> < </a></div>
+        {% else %}
+            <div class="col"><a href="{% url 'calendario_appuntamenti' giorno|add:"-1" %}" class="btn btn-info"
+                                role="button"> < </a></div>
+        {% endif %}
+        <div class="col"><a href="{% url 'calendario_appuntamenti' giorno|add:"1" %}" class="btn btn-info"
+                            role="button"> > </a></div>
+    </div>
